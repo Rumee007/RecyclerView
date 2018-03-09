@@ -16,24 +16,30 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private List<Movie> movies = new ArrayList<>();
     private RecyclerView recyclerView;
-    private MovieAdapter adapter;
+    private MovieAdapter movieAdapter;
     private ItemAdapter itemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         recyclerView = findViewById(R.id.recyclerView);
         // Only Movie
-        adapter = new MovieAdapter(this,Movie.generateMovies());
+        movieAdapter = new MovieAdapter(this, Movie.generateMovies());
         // Movie and Image
-        itemAdapter = new ItemAdapter(this,populateItems());
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+        itemAdapter = new ItemAdapter(this, populateItems());
+
+        // Use Grid Layout manager
         GridLayoutManager glm = new GridLayoutManager(this,2);
+        // Use Linear Layout manager
+        LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+        // Which layout : Action here
         recyclerView.setLayoutManager(llm);
         // Set here itemAdapter or adapter
-        recyclerView.setAdapter(itemAdapter);
+        recyclerView.setAdapter(movieAdapter);
 
         Log.e(TAG, "onCreate called");
     }
